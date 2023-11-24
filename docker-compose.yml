@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  api:
+    container_name: lastgift-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./api:/usr/src/app/api
+      - /usr/src/app/api/node_modules
+
+  ui:
+    container_name: lastgift-ui
+    build:
+      context: ./app-ui
+      dockerfile: Dockerfile
+    ports:
+      - '4201:4201'
+    volumes:
+      - ./app-ui:/usr/src/app/app-ui
+      - /usr/src/app/app-ui/node_modules
+
+  db:
+    container_name: lastgift-db
+    platform: linux/x86_64
+    image: mysql:5.7
+    restart: 'always'
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./database/mysql/data/mysql:/var/lib/mysql
+      - ./database/mysql/logs/mysql:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: node
+      MYSQL_DATABASE: dbnode
+      MYSQL_USER: usnode
+      MYSQL_PASSWORD: pwnode

@@ -1,0 +1,6 @@
+# API
+api/node_modules
+
+# DB
+database/mysql/data
+database/mysql/logs
