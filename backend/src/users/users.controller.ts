@@ -9,4 +9,9 @@ export class UsersController {
   getProfile(@Request() req) {
     return this.usersService.findOne(req.user.username);
   }
+
+  @Get('friends')
+  getFriends(@Request() req) {
+    return this.usersService.findFriends(req.user.username);
+  }
 }
